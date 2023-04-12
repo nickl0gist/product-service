@@ -32,13 +32,20 @@ public class ProductController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("price-range")
+    public Flux<ProductDTO> getProductsFilteredByPrice(@RequestParam("min") Double min,
+                                                                       @RequestParam("max") Double max){
+        return this.service.getProductInPriceRange(min, max);
+    }
+
     @PostMapping
     public Mono<ProductDTO> insertProduct(@RequestBody Mono<ProductDTO> productDTOMono){
         return this.service.insertProduct(productDTOMono);
     }
 
     @PutMapping("{id}")
-    public Mono<ResponseEntity<ProductDTO>> updateProduct(@PathVariable String id, @RequestBody Mono<ProductDTO> productDTOMono){
+    public Mono<ResponseEntity<ProductDTO>> updateProduct(@PathVariable String id,
+                                                          @RequestBody Mono<ProductDTO> productDTOMono){
         return this.service.updateProduct(id, productDTOMono)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
@@ -48,4 +55,5 @@ public class ProductController {
     public Mono<Void> deleteProduct(@PathVariable String id){
         return this.service.deleteProduct(id);
     }
+
 }

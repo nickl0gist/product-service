@@ -1,7 +1,6 @@
 package com.nickl0gist.productservice.dto;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * Created on 10.04.2023
@@ -11,6 +10,9 @@ import lombok.ToString;
  */
 @Data
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDTO {
     private String id;
     private String description;
